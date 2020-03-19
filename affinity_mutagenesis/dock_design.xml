@@ -1,0 +1,43 @@
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+	</SCOREFXNS>
+	<TASKOPERATIONS>
+		<InitializeFromCommandline name="ifcl"/>
+		<RestrictToRepacking name="rtr" />
+		Design and repack residues based on resfile
+		<ReadResfile name="rrf" filename="design.resfile"/>
+	</TASKOPERATIONS>
+	<FILTERS>
+	</FILTERS>
+	<MOVERS>
+		MINIMIZATION MOVERS
+		Single cycle of FastRelax to minimize backbone of docking partners
+		<FastRelax name="minimize_interface" scorefxn="REF2015" repeats="1" task_operations="ifcl,rtr,rrf" />
+	
+		DOCKING MOVERS
+		<DockingProtocol name="dock" docking_score_low=" ref2015" docking_score_high="ref2015" low_res_protocol_only="0" docking_local_refine="1" dock_min="1" ignore_default_docking_task="0" task_operations="ifcl,rtr,rrf" partners="%%partners%%"/>
+
+		DESIGN MOVER
+		<PackRotamersMover name="design" scorefxn="REF2015" task_operations="ifcl,rrf" />
+		
+		INTERFACE METRICS
+		<InterfaceAnalyzerMover name="analyze" scorefxn="REF2015" packstat="1" pack_input="0" pack_separated="1" interface="%%partners%%" />
+	
+	</MOVERS>
+	<APPLY_TO_POSE>
+	</APPLY_TO_POSE>
+	<PROTOCOLS>
+		Run docking protocol
+		<Add mover="dock"/>
+
+		Design
+		<Add mover="design" />
+
+		Minimize interface
+		<Add mover="minimize_interface" />
+
+		Calculate interface metrics for the final sequence
+		<Add mover="analyze" />
+	</PROTOCOLS>
+	<OUTPUT scorefxn="REF2015" />
+</ROSETTASCRIPTS>
