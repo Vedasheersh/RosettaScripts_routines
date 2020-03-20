@@ -1,0 +1,28 @@
+# defaults
+-ex1 
+-ex2
+-ex2aro
+-use_input_sc
+-ignore_zero_occupancy false
+
+# 0 -> input pdb prepared file
+-in:file:s {0}
+
+# 1 -> script file
+-parser:protocol {1}
+
+# 2 -> variable for partners
+-parser:script_vars partners={2}
+
+# 3 -> nstruct
+-nstruct {3}
+
+# 4 -> output suffix
+-out:suffix {4}
+
+# 5 -> variable for resfile
+-parser:script_vars resfile={5}
+
+# 6 -> pivot residues
+-parser:script_vars pivots={6}
+
