@@ -1,14 +1,9 @@
 from Bio.PDB import PDBParser
 from Bio.PDB import PDBExceptions
-# from Bio.PDB import Polypeptide
 import warnings
 import sys
 import math
 from optparse import OptionParser
-
-## 6/1/2015 AMS - This script was adapted from a similar one written by David Nannemann. The purpose is to define residues at the interface of a 
-## protein-protein complex. It eliminates the use of a vector cutoff and uses a simpler calculation of cross-interface distances, either by 
-## closest side chain atom, Ca distance, or Cb distance.
 
 standard_aa_names={"ALA":"A", "CYS":"C", "ASP":"D", "GLU":"E", "PHE":"F", "GLY":"G", "HIS":"H", "ILE":"I", "LYS":"K", 
                    "LEU":"L", "MET":"M", "ASN":"N", "PRO":"P", "GLN":"Q", "ARG":"R", "SER":"S", "THR":"T", "VAL":"V",
